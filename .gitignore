@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+
+# Virtual envs
+.venv/
+venv/
+
+# Test/cache artifacts
+.pytest_cache/
+.mypy_cache/
+
+# Runtime-generated outputs/data
+outputs/
+outputs_real/
+kitti_real_subset/
+
+# OS/editor noise
+.DS_Store

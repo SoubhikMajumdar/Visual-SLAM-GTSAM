@@ -1,0 +1,35 @@
+project:
+  name: VI-SLAM-KITTI
+
+dataset:
+  root: kitti_real_subset
+  sequence: "00"
+
+frontend:
+  num_features: 1800
+  scale_factor: 1.2
+  n_levels: 8
+  fast_threshold: 20
+  stereo_match_ratio: 0.75
+  temporal_match_ratio: 0.8
+  parallax_threshold_px: 12.0
+  min_keyframe_features: 100
+  pnp_reproj_error: 3.0
+
+map:
+  sliding_window_size: 10
+  min_landmark_observations: 2
+  max_landmark_age: 20
+
+backend:
+  prior_noise_sigmas: [0.05, 0.05, 0.05, 0.1, 0.1, 0.1]
+  odom_noise_sigmas: [0.08, 0.08, 0.08, 0.15, 0.15, 0.15]
+  loop_noise_sigmas: [0.05, 0.05, 0.05, 0.1, 0.1, 0.1]
+  loop_similarity_threshold: 0.90
+  loop_min_separation: 15
+
+runtime:
+  max_frames: 50
+  visualize_3d: false
+  save_outputs: true
+  output_dir: outputs_real
