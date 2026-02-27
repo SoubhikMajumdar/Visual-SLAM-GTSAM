@@ -126,6 +126,22 @@ Run on the prepared real subset config:
 PYTHONPATH=. python scripts/run_slam.py --config configs/kitti_real_subset.yaml
 ```
 
+Batch run across KITTI sequences (default `00-10`):
+
+```bash
+PYTHONPATH=. python scripts/run_batch_eval.py --config configs/kitti.yaml --sequences 00-10 --output-dir outputs_batch
+```
+
+Batch outputs:
+
+```text
+outputs_batch/
+├── batch_metrics.md
+├── batch_metrics.csv
+├── batch_failures.log      # only if some sequences fail
+└── seq_XX/                 # per-sequence artifacts
+```
+
 Outputs are written to:
 
 ```text
@@ -165,6 +181,7 @@ Generated artifacts from this run:
 - Loop closure is intentionally lightweight (descriptor cosine similarity baseline).
 - You can disable Open3D in headless environments by setting `runtime.visualize_3d: false`.
 - In headless/dev-container environments, Open3D may be unavailable at runtime; the code falls back to a plain ASCII `.ply` writer.
+- CI is configured in `.github/workflows/ci.yml` to run unit tests on push/PR.
 
 ## Result GIFs
 

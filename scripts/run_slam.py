@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import yaml
@@ -11,7 +12,7 @@ from tqdm import tqdm
 
 from slam_kitti.backend import BackendConfig, LoopClosureDetector, SLAMBackend
 from slam_kitti.dataset import KITTIOdometryDataset
-from slam_kitti.evaluation import TrajectoryEvaluator
+from slam_kitti.evaluation import ErrorStats, TrajectoryEvaluator
 from slam_kitti.frontend import FrontendConfig, TrackingResult, VisualFrontend
 from slam_kitti.map import Keyframe, LocalMap
 from slam_kitti.visualization import Open3DMapViewer, TrajectoryPlotter, save_point_cloud_ply, save_tum_trajectory
@@ -54,7 +55,13 @@ def _make_keyframe(
     )
 
 
-def run_pipeline(config_path: str | Path) -> None:
+def run_pipeline(
+    config_path: str | Path,
+    sequence_override: str | None = None,
+    max_frames_override: int | None = None,
+    visualize_override: bool | None = None,
+    output_dir_override: str | None = None,
+) -> tuple[str, dict[str, ErrorStats] | None, Path]:
     """Run the complete VI-SLAM-KITTI pipeline."""
     config = _load_config(config_path)
 
@@ -69,6 +76,15 @@ def run_pipeline(config_path: str | Path) -> None:
         loop_min_separation=int(config["backend"]["loop_min_separation"]),
     )
     runtime_cfg = config["runtime"]
+
+    if sequence_override is not None:
+        dataset_cfg["sequence"] = sequence_override
+    if max_frames_override is not None:
+        runtime_cfg["max_frames"] = int(max_frames_override)
+    if visualize_override is not None:
+        runtime_cfg["visualize_3d"] = bool(visualize_override)
+    if output_dir_override is not None:
+        runtime_cfg["output_dir"] = output_dir_override
 
     dataset = KITTIOdometryDataset(dataset_cfg["root"], dataset_cfg["sequence"])
     first_frame = dataset.get_frame(0)
@@ -208,6 +224,7 @@ def run_pipeline(config_path: str | Path) -> None:
         TrajectoryPlotter.plot_topdown(estimated_poses, gt_poses, output_dir / "trajectory_topdown.png")
 
     print(f"Outputs saved to: {output_dir}")
+    return dataset.sequence, results.get(dataset.sequence), output_dir
 
 
 def main() -> None:
