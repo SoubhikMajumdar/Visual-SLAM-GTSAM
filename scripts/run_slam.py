@@ -145,7 +145,7 @@ def run_pipeline(
         )
 
         if tracking.success:
-            global_pose = last_keyframe.pose @ tracking.relative_pose
+            global_pose = last_keyframe.pose @ _invert_se3(tracking.relative_pose)
         estimated_poses.append(global_pose.copy())
         if frame.gt_pose is not None:
             gt_poses.append(frame.gt_pose.copy())
