@@ -24,6 +24,7 @@ Complete, modular Visual(-Inertial style) SLAM pipeline for KITTI Odometry seque
 SLAM/
 ├── configs/
 │   ├── kitti.yaml
+│   ├── kitti_mock.yaml
 │   └── kitti_real_subset.yaml
 ├── slam_kitti/
 │   ├── __init__.py
@@ -166,7 +167,7 @@ The pipeline prints a markdown table with mean/median/RMSE.
 
 | Sequence | ATE Mean (m) | ATE Median (m) | ATE RMSE (m) | RPE-t Mean (m) | RPE-t Median (m) | RPE-t RMSE (m) | RPE-r Mean (rad) | RPE-r Median (rad) | RPE-r RMSE (rad) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 00 | 42.4685 | 41.2691 | 49.9650 | 1.8198 | 1.8457 | 1.8274 | 0.0070 | 0.0067 | 0.0075 |
+| 00 | 1.5210 | 1.5616 | 1.6290 | 0.0837 | 0.0631 | 0.1075 | 0.0025 | 0.0017 | 0.0033 |
 
 Generated artifacts from this run:
 
