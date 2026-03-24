@@ -153,6 +153,14 @@ outputs/seq_XX/
 └── trajectory_topdown.png
 ```
 
+## Testing
+
+Run unit tests from the repository root:
+
+```bash
+PYTHONPATH=. pytest -q
+```
+
 ## Evaluation Metrics
 
 Computed metrics:
