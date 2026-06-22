@@ -3,6 +3,7 @@
 Complete, modular Visual(-Inertial style) SLAM pipeline for KITTI Odometry sequences **00-10**, implemented from scratch in Python using stereo vision, local mapping, and GTSAM pose-graph optimization.
 
 > Dataset: http://www.cvlibs.net/datasets/kitti/eval_odometry.php
+## Notebook 
 > Real time Stereo visial SLAM notebook: https://colab.research.google.com/drive/1jLQ00e8RxnNncyjyEpXYzL5dOX1D0Jym?authuser=2#scrollTo=u9dFW8DP9Dvq
 ## Features
 
